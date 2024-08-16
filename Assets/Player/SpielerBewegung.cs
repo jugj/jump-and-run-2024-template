@@ -14,9 +14,6 @@ public class SpielerBewegung : MonoBehaviour
 
     public float Geschwindigkeit = 3.0f;
 
-    private float HorizontaleBewegung = 0;
-    private float VertikaleBewegung = 0;
-
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +22,6 @@ public class SpielerBewegung : MonoBehaviour
 
     }
 
-    // Update is called once per frame 
-    void Update()
-    {
-        //HorizontaleBewegung beschreibt, ob wir nach links oder rechts drücken. Welche Tasten was bedeuten findet ihr unter Edit>Project Settings>Input-Manager
-        HorizontaleBewegung = Input.GetAxisRaw("Horizontal"); //Dies ist eine Nummer zwischen -1(Links) und 1(Rechts)
-        VertikaleBewegung = Input.GetAxisRaw("Vertical"); //Dies ist eine Nummer zwischen -1(Unten) und 1(Oben)
-        
-        Debug.Log(HorizontaleBewegung);
-    }
 
     //Wird alle 50 Frames aktiviert. Alles was mit Physik zu tun hat, macht man hier.
     void FixedUpdate()
@@ -49,10 +37,6 @@ public class SpielerBewegung : MonoBehaviour
             Debug.Log("links");
             rb.AddForce(Vector2.left * Geschwindigkeit, ForceMode2D.Impulse);
         }
-        //if (HorizontaleBewegung > 0.1f || HorizontaleBewegung < -0.1f)
-        //{
-        //    rb.AddForce(new Vector2(HorizontaleBewegung * Geschwindigkeit, 0f), ForceMode2D.Impulse);
-        //}
 
 
         //Springen // Für mehr Tipps und andere Techniken, wie man in Unity springen kann: https://gamedevbeginner.com/how-to-jump-in-unity-with-or-without-physics/
@@ -62,7 +46,7 @@ public class SpielerBewegung : MonoBehaviour
         }
 
         //Wenn die Pfeiltaste Oben runter gedrückt wird und der Spieler nicht in der Luft ist, springt der Spieler
-        if (VertikaleBewegung > 0.1f && !istInDerLuft)
+        if (Input.GetKey("up") && !istInDerLuft)
         {
             rb.AddForce(Vector2.up * SprungKraft, ForceMode2D.Impulse);
             istInDerLuft = true;

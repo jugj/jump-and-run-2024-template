@@ -31,6 +31,8 @@ public class SpielerBewegung : MonoBehaviour
         //HorizontaleBewegung beschreibt, ob wir nach links oder rechts drücken. Welche Tasten was bedeuten findet ihr unter Edit>Project Settings>Input-Manager
         HorizontaleBewegung = Input.GetAxisRaw("Horizontal"); //Dies ist eine Nummer zwischen -1(Links) und 1(Rechts)
         VertikaleBewegung = Input.GetAxisRaw("Vertical"); //Dies ist eine Nummer zwischen -1(Unten) und 1(Oben)
+        
+        Debug.Log(HorizontaleBewegung);
     }
 
     //Wird alle 50 Frames aktiviert. Alles was mit Physik zu tun hat, macht man hier.
@@ -39,10 +41,12 @@ public class SpielerBewegung : MonoBehaviour
         //Laufen
         if (Input.GetKey("right"))
         {
+            Debug.Log("rechts");
             rb.AddForce(Vector2.right * Geschwindigkeit, ForceMode2D.Impulse);
         }
         if (Input.GetKey("left"))
         {
+            Debug.Log("links");
             rb.AddForce(Vector2.left * Geschwindigkeit, ForceMode2D.Impulse);
         }
         //if (HorizontaleBewegung > 0.1f || HorizontaleBewegung < -0.1f)
@@ -57,7 +61,7 @@ public class SpielerBewegung : MonoBehaviour
             istInDerLuft = false;
         }
 
-        //Wenn die Leertaste runter gedrückt wird und der Spieler nicht in der Luft ist, springt der Spieler
+        //Wenn die Pfeiltaste Oben runter gedrückt wird und der Spieler nicht in der Luft ist, springt der Spieler
         if (VertikaleBewegung > 0.1f && !istInDerLuft)
         {
             rb.AddForce(Vector2.up * SprungKraft, ForceMode2D.Impulse);
